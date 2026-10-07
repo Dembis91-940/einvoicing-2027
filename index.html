@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prêt à émettre 2027 — Diagnostic de préparation e-invoicing (facturation électronique)</title>
+<meta name="description" content="La facture électronique devient obligatoire le 1er septembre 2027 pour les TPE, PME et indépendants. Diagnostic gratuit (checklist + comparatif PDP) et prestation d'accompagnement 290 à 490 € : audit de vos flux, choix de la PDP, plan de bascule.">
+<meta property="og:title" content="Prêt à émettre 2027 — Diagnostic de préparation e-invoicing">
+<meta property="og:description" content="Émission obligatoire au 1er septembre 2027. Sanction : 50 €/facture non conforme. Diagnostic gratuit + accompagnement 290 à 490 €.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dembis91-940.github.io/einvoicing-2027/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Prêt à émettre 2027 — Diagnostic de préparation e-invoicing",
+  "description": "Diagnostic de préparation à la facturation électronique obligatoire (1er septembre 2027) : audit des flux, choix de la PDP, plan de bascule.",
+  "provider": {"@type": "Organization", "name": "Prêt à émettre 2027"},
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": "290",
+    "description": "Diagnostic de préparation à partir de 290 €."
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "La facture électronique est-elle obligatoire pour moi ?", "acceptedAnswer": {"@type": "Answer", "text": "Si vous émettez des factures B2B assujetties à la TVA, l'émission de factures électroniques devient obligatoire au 1er septembre 2027 pour les TPE, PME et micro-entrepreneurs. La réception est déjà obligatoire pour toutes les entreprises depuis le 1er septembre 2026."}},
+    {"@type": "Question", "name": "Quelles sont les sanctions en cas de facture non conforme ?", "acceptedAnswer": {"@type": "Answer", "text": "Loi de finances 2026 : 50 € par facture non conforme (plafond 15 000 €/an), 500 € par transmission e-reporting manquante, et 500 € puis 1 000 € par trimestre en cas d'absence de PDP après mise en demeure."}},
+    {"@type": "Question", "name": "Un PDF suffit-il ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Les factures électroniques doivent utiliser les formats structurés Factur-X, UBL ou CII via une Plateforme de Dématérialisation Partenaire (PDP) ou le Portail Public de Facturation (PPF). Un simple PDF n'est pas conforme."}}
+  ]
+}
+</script>
+<style>
+:root{
+  --paper:#F6F1E6;
+  --paper-alt:#EFE8D8;
+  --ink:#0E2A20;
+  --ink-soft:#3E574B;
+  --green:#1E6B4E;
+  --green-dark:#17543D;
+  --amber:#C8772B;
+  --amber-soft:#F3E3CF;
+  --danger:#B3402A;
+  --danger-soft:#F6E2DC;
+  --card:#FFFFFF;
+  --line:#E1D8C2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink-soft);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--green);text-decoration:none}
+h1,h2,h3{font-family:'Spectral',Georgia,serif;color:var(--ink);line-height:1.12;font-weight:700}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* ---------- barre d'échéance ---------- */
+.deadline-bar{background:linear-gradient(90deg,var(--amber),#B66A1F);color:#fff;text-align:center;padding:8px 16px;font-size:13px;font-weight:600;letter-spacing:.2px}
+.deadline-bar .mono{font-weight:600}
+/* ---------- nav ---------- */
+header.site{position:sticky;top:0;z-index:50;background:rgba(246,241,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink)}
+.logo .mark{width:34px;height:34px;border-radius:9px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px}
+.logo span.small{display:block;font-size:11px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.5px}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{color:var(--ink-soft);font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{background:var(--green);color:#fff;padding:10px 18px;border-radius:9px;font-weight:600;font-size:14px}
+.nav-cta:hover{background:var(--green-dark);color:#fff}
+/* ---------- hero ---------- */
+.hero{padding:72px 0 56px;position:relative}
+.hero .kicker{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);background:var(--amber-soft);padding:6px 12px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-size:clamp(34px,5.4vw,58px);max-width:16ch;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:var(--green);border-bottom:3px solid var(--amber)}
+.hero .lede{font-size:18px;max-width:56ch;margin:22px 0 0;color:var(--ink-soft)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;margin-top:44px}
+.countdown-box{background:var(--ink);color:#fff;border-radius:18px;padding:28px;box-shadow:0 18px 40px rgba(14,42,32,.22)}
+.countdown-box .cd-title{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#9FC2B2;margin-bottom:6px}
+.countdown-box .cd-target{font-family:'Spectral',Georgia,serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:20px}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cd-cell{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;text-align:center;padding:14px 6px}
+.cd-cell .num{font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:#fff;line-height:1}
+.cd-cell .lab{font-size:11px;color:#9FC2B2;margin-top:6px;text-transform:uppercase;letter-spacing:.8px}
+.countdown-box .cd-note{font-size:12px;color:#9FC2B2;margin-top:16px}
+/* frise échéancier */
+.frise{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+.frise h3{font-size:15px;margin-bottom:16px}
+.tl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative}
+.tl-step{padding:0 14px;border-left:3px solid var(--line);position:relative}
+.tl-step:first-child{border-left-color:var(--green)}
+.tl-step .dot{position:absolute;left:-8px;top:0;width:13px;height:13px;border-radius:50%;background:var(--green);border:2px solid #fff;box-shadow:0 0 0 1px var(--green)}
+.tl-step:first-child .dot{background:var(--green)}
+.tl-step:nth-child(2) .dot{background:var(--amber);box-shadow:0 0 0 1px var(--amber)}
+.tl-step:nth-child(3) .dot{background:var(--danger);box-shadow:0 0 0 1px var(--danger)}
+.tl-step .t-date{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.tl-step .t-txt{font-size:13px;color:var(--ink-soft)}
+.tl-step .t-ok{color:var(--green);font-weight:600;font-size:12px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 26px;border-radius:11px;font-weight:600;font-size:16px;cursor:pointer;border:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-ghost{background:transparent;color:var(--green);border:1.5px solid var(--green)}
+.btn-amber{background:var(--amber);color:#fff}
+/* ---------- sections génériques ---------- */
+section{padding:72px 0}
+section.alt{background:var(--paper-alt)}
+.sec-head{max-width:640px;margin-bottom:40px}
+.sec-head .kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--amber)}
+.sec-head h2{font-size:clamp(26px,3.6vw,40px);margin-top:10px;letter-spacing:-.4px}
+.sec-head p{font-size:17px;margin-top:12px;color:var(--ink-soft)}
+/* ---------- risque / sanctions ---------- */
+.risk-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}
+.warning-card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--danger);border-radius:16px;padding:30px}
+.warning-card h3{font-size:21px;color:var(--danger);margin-bottom:8px}
+.warning-card .sub{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
+.fact{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+.fact:last-child{border-bottom:none}
+.fact .ico{flex:0 0 40px;height:40px;border-radius:10px;background:var(--danger-soft);color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.fact b{color:var(--ink);font-size:16px}
+.fact .txt{font-size:14px;color:var(--ink-soft)}
+.fact .txt .mono{color:var(--danger);font-weight:600}
+.stats{display:grid;grid-template-columns:1fr;gap:14px}
+.stat{background:var(--ink);color:#fff;border-radius:16px;padding:22px 24px}
+.stat .num{font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:#fff}
+.stat .lab{font-size:13px;color:#9FC2B2;margin-top:4px}
+.stat.amber{background:var(--amber)}
+.stat.amber .lab{color:#fff}
+/* ---------- piège PDF ---------- */
+.piege-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(14,42,32,.10)}
+.card .card-ico{width:46px;height:46px;border-radius:12px;background:var(--paper-alt);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.card h3{font-size:19px;margin-bottom:10px}
+.card p{font-size:15px;color:var(--ink-soft)}
+/* ---------- pour qui ---------- */
+.audience{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.aud-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.aud-card .a-ico{font-size:24px;margin-bottom:12px}
+.aud-card h3{font-size:17px;margin-bottom:8px}
+.aud-card p{font-size:14px;color:var(--ink-soft)}
+/* ---------- lead magnet ---------- */
+.lead-band{background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;border-radius:22px;padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+.lead-band h2{color:#fff;font-size:clamp(24px,3.2vw,36px)}
+.lead-band p{color:#CFE5DA;font-size:16px;margin-top:10px}
+.lead-band ul{margin-top:16px;list-style:none}
+.lead-band li{padding:6px 0;color:#fff;font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.lead-band li::before{content:"✓";color:#FFD9A8;font-weight:700}
+.dl-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.dl-links a{color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:9px 14px;border-radius:9px;font-size:13px;font-weight:500}
+.dl-links a:hover{background:rgba(255,255,255,.12)}
+.lead-form{background:#fff;border-radius:16px;padding:26px;color:var(--ink);box-shadow:0 14px 36px rgba(0,0,0,.18)}
+.lead-form h3{font-size:19px;margin-bottom:6px}
+.lead-form .hint{font-size:13px;color:var(--ink-soft);margin-bottom:16px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;min-width:0;border:1.5px solid var(--line);border-radius:9px;padding:11px 13px;font-size:15px;font-family:inherit;color:var(--ink);background:#fff;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.field textarea{resize:vertical;min-height:74px}
+.form-note{font-size:12px;color:var(--ink-soft);margin-top:10px;line-height:1.5}
+.form-err{color:var(--danger);font-size:13px;font-weight:600;margin-top:10px;display:none}
+.form-ok{color:var(--green);font-size:14px;font-weight:600;margin-top:10px;display:none}
+/* ---------- offres ---------- */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.offer{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;position:relative}
+.offer.hot{border-color:var(--green);box-shadow:0 16px 40px rgba(14,42,32,.14)}
+.offer .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;font-family:'IBM Plex Mono',monospace;letter-spacing:.4px}
+.offer h3{font-size:21px;margin-bottom:4px}
+.offer .desc{font-size:14px;color:var(--ink-soft);min-height:44px;margin-bottom:16px}
+.offer .price{font-family:'Spectral',Georgia,serif;font-size:38px;font-weight:700;color:var(--ink)}
+.offer .price small{font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--ink-soft)}
+.offer ul{list-style:none;margin:18px 0 24px;flex:1}
+.offer li{padding:7px 0;font-size:14px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start}
+.offer li::before{content:"✓";color:var(--green);font-weight:700;flex:0 0 auto}
+.offer .btn{width:100%;justify-content:center}
+.offer.hot .btn{background:var(--green)}
+/* ---------- méthode ---------- */
+.meth{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.meth-step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative}
+.meth-step .m-num{font-family:'Spectral',Georgia,serif;font-size:56px;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--amber);line-height:1;margin-bottom:12px}
+.meth-step h3{font-size:19px;margin-bottom:10px}
+.meth-step p{font-size:14px;color:var(--ink-soft)}
+/* ---------- FAQ ---------- */
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:12px;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:18px 20px;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq-q .chev{flex:0 0 auto;color:var(--green);font-size:18px;transition:transform .2s}
+.faq-q.open .chev{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;color:var(--ink-soft);font-size:15px}
+.faq-a .inner{padding:0 20px 18px}
+/* ---------- commande ---------- */
+.order-box{background:var(--card);border:1.5px solid var(--green);border-radius:20px;padding:36px;display:grid;grid-template-columns:.9fr 1.1fr;gap:36px}
+.order-left h2{font-size:clamp(24px,3vw,34px)}
+.order-left p{font-size:16px;margin-top:10px;color:var(--ink-soft)}
+.order-left .steps{margin-top:20px;list-style:none}
+.order-left .steps li{padding:8px 0;font-size:15px;display:flex;gap:12px;align-items:flex-start}
+.order-left .steps li b{color:var(--green);font-family:'IBM Plex Mono',monospace;font-weight:600}
+.offer-radio{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.offer-radio label{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);border-radius:11px;padding:13px 15px;cursor:pointer;font-size:15px;transition:border .15s,background .15s}
+.offer-radio label:hover{border-color:var(--green)}
+.offer-radio input{accent-color:var(--green);width:18px;height:18px;flex:0 0 auto}
+.offer-radio .r-price{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink)}
+.offer-radio label.sel{border-color:var(--green);background:#F2F8F4}
+/* ---------- footer ---------- */
+footer.site{background:var(--ink);color:#CFE5DA;padding:48px 0 32px;margin-top:24px}
+footer .f-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .f-brand{max-width:340px}
+footer .f-brand .logo{color:#fff}
+footer .f-brand p{font-size:13px;margin-top:12px;color:#9FC2B2}
+footer a{color:#CFE5DA;font-size:14px}
+footer a:hover{color:#fff}
+footer .f-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:32px;padding-top:20px;font-size:12px;color:#7FA596;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.disclaimer{font-size:11px;color:#7FA596;max-width:760px;margin-top:14px;line-height:1.5}
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .hero-grid,.risk-grid,.lead-band,.order-box{grid-template-columns:1fr}
+  .offers,.piege-grid,.meth{grid-template-columns:1fr}
+  .audience{grid-template-columns:1fr 1fr}
+  .nav-links a:not(.nav-cta){display:none}
+}
+@media (max-width:560px){
+  .audience{grid-template-columns:1fr}
+  .cd-grid{grid-template-columns:repeat(4,1fr);gap:6px}
+  .cd-cell .num{font-size:22px}
+  .tl{grid-template-columns:1fr;gap:18px}
+  .tl-step{border-left:3px solid var(--line);padding-left:16px}
+  .offer .price{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="deadline-bar">⏳ <span class="mono">Émission obligatoire au 01/09/2027</span> · Sanction : <span class="mono">50 € / facture non conforme</span> (plafond 15 000 €/an)</div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="mark">27</span><span>Prêt à émettre<span class="small">DIAGNOSTIC E-INVOICING</span></span></a>
+    <nav class="nav-links">
+      <a href="#risque">Le risque</a>
+      <a href="#diagnostic">Diagnostic gratuit</a>
+      <a href="#offres">Offres</a>
+      <a href="#faq">FAQ</a>
+      <a href="#commander" class="nav-cta">Je me prépare</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Facturation électronique · échéance 2027</span>
+    <h1>La facture électronique devient obligatoire. <em>Êtes-vous prêt à émettre&nbsp;?</em></h1>
+    <p class="lede">Au 1<sup>er</sup> septembre 2027, toutes les TPE, PME et indépendants devront émettre leurs factures B2B au format structuré via une Plateforme Agréée. Un simple PDF ne suffira plus — et chaque facture non conforme expose à 50&nbsp;€ d'amende.</p>
+    <div class="hero-ctas">
+      <a href="#diagnostic" class="btn btn-primary">Recevoir le diagnostic gratuit</a>
+      <a href="#offres" class="btn btn-ghost">Voir les accompagnements</a>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <div class="countdown-box">
+          <div class="cd-title">Compte à rebours réel</div>
+          <div class="cd-target">Jusqu'à l'émission obligatoire — 1<sup>er</sup> septembre 2027</div>
+          <div class="cd-grid">
+            <div class="cd-cell"><div class="num" id="cd-d">—</div><div class="lab">jours</div></div>
+            <div class="cd-cell"><div class="num" id="cd-h">—</div><div class="lab">heures</div></div>
+            <div class="cd-cell"><div class="num" id="cd-m">—</div><div class="lab">min</div></div>
+            <div class="cd-cell"><div class="num" id="cd-s">—</div><div class="lab">sec</div></div>
+          </div>
+          <div class="cd-note">Le temps de préparer votre bascule se raccourcit chaque jour.</div>
+        </div>
+      </div>
+      <div>
+        <div class="frise">
+          <h3>Votre échéancier</h3>
+          <div class="tl">
+            <div class="tl-step">
+              <span class="dot"></span>
+              <div class="t-date">01/09/2026</div>
+              <div class="t-txt">Réception des factures électroniques obligatoire pour <b>toutes</b> les entreprises.</div>
+              <div class="t-ok">✓ C'est déjà en vigueur</div>
+            </div>
+            <div class="tl-step">
+              <span class="dot"></span>
+              <div class="t-date">Aujourd'hui</div>
+              <div class="t-txt">Fenêtre de préparation : audit des flux, choix de la PDP, plan de bascule.</div>
+              <div class="t-ok" style="color:var(--amber)">→ C'est maintenant</div>
+            </div>
+            <div class="tl-step">
+              <span class="dot"></span>
+              <div class="t-date">01/09/2027</div>
+              <div class="t-txt">Émission obligatoire pour TPE, PME et micro-entrepreneurs (Factur-X, UBL, CII).</div>
+              <div class="t-ok" style="color:var(--danger)">Sanctions après cette date</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISQUE -->
+<section id="risque" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Le risque chiffré</span>
+      <h2>Ce que coûte l'attente</h2>
+      <p>La loi de finances 2026 a durci les sanctions. Le risque n'est plus théorique : il se calcule.</p>
+    </div>
+    <div class="risk-grid">
+      <div class="warning-card">
+        <h3>Les sanctions en clair</h3>
+        <p class="sub">Sources : economie.gouv.fr · service-public.gouv.fr · formalites.lesechos.fr</p>
+        <div class="fact"><div class="ico">50 €</div><div><b>Par facture non conforme</b><div class="txt">Amende de <span class="mono">50 €</span> pour chaque facture émise sans données structurées, plafonnée à <span class="mono">15 000 € / an</span>.</div></div></div>
+        <div class="fact"><div class="ico">500 €</div><div><b>Par e-reporting manquant</b><div class="txt">Ventes aux particuliers (B2C) et opérations internationales non déclarées : <span class="mono">500 €</span> par transmission manquante.</div></div></div>
+        <div class="fact"><div class="ico">1 000 €</div><div><b>Sans PDP après mise en demeure</b><div class="txt">Absence de Plateforme Agréée : <span class="mono">500 €</span> puis <span class="mono">1 000 € / trimestre</span>.</div></div></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num">15 000 €</div><div class="lab">Plafond annuel d'amendes pour une TPE qui reste en PDF simple (100 factures B2B/mois, en théorie).</div></div>
+        <div class="stat amber"><div class="num">11 mois</div><div class="lab">La fenêtre de vente restante pour préparer la bascule en serein — pas de précipitation de dernière minute.</div></div>
+        <div class="stat"><div class="num">3 formats</div><div class="lab">Factur-X, UBL, CII : les formats structurés obligatoires, pas négociables.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIÈGE PDF -->
+<section id="piege">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Le piège n° 1</span>
+      <h2>« J'envoie déjà mes factures en PDF, c'est bon. »</h2>
+      <p>Non. C'est la confusion la plus courante — et la plus coûteuse.</p>
+    </div>
+    <div class="piege-grid">
+      <div class="card"><div class="card-ico">📄</div><h3>Un PDF n'est pas une facture électronique</h3><p>La facture électronique exige un <b>volet structuré</b> (XML Factur-X/UBL/CII) joint au PDF lisible. Sans lui, votre facture est refusée.</p></div>
+      <div class="card"><div class="card-ico">🧩</div><h3>Votre logiciel ne suffit peut-être pas</h3><p>Un logiciel de facturation classique n'est pas une <b>PDP</b>. Vérifiez qu'il est immatriculé ou connecté à une Plateforme Agréée.</p></div>
+      <div class="card"><div class="card-ico">🏪</div><h3>Les éditeurs vendent leur logiciel</h3><p>Pennylane, Tiime, Freebe, Axonaut… vendent leur outil. Personne ne vous dit <b>lequel choisir pour votre métier</b> — c'est notre diagnostic.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section id="cible" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Pour qui</span>
+      <h2>Vous êtes concerné si vous facturez à d'autres entreprises</h2>
+    </div>
+    <div class="audience">
+      <div class="aud-card"><div class="a-ico">🧾</div><h3>Indépendants B2B</h3><p>Consultants, freelances, prestataires qui facturent des clients professionnels.</p></div>
+      <div class="aud-card"><div class="a-ico">🛠️</div><h3>Artisans &amp; TPE</h3><p>Devis, acomptes, factures de chantier : le cycle complet doit basculer.</p></div>
+      <div class="aud-card"><div class="a-ico">📊</div><h3>Comptables &amp; cabinets</h3><p>Réception multi-dossiers, ventilation, conformité pour vos clients.</p></div>
+      <div class="aud-card"><div class="a-ico">🏢</div><h3>PME</h3><p>Volume important, B2C, international : émission + e-reporting complets.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section id="diagnostic">
+  <div class="wrap">
+    <div class="lead-band">
+      <div>
+        <span class="kicker" style="color:#FFD9A8">Offert · sans engagement</span>
+        <h2>Le diagnostic gratuit : checklist 2027 + comparatif PDP</h2>
+        <p>Deux documents concrets pour faire le point dès aujourd'hui, sans rien installer :</p>
+        <ul>
+          <li>La <b>checklist en 12 points</b> : vos flux, vos formats, vos mentions, votre plan de bascule.</li>
+          <li>Le <b>comparatif PDP par métier</b> : quelle Plateforme Agréée pour votre profil, avec les bonnes questions à poser.</li>
+        </ul>
+        <div class="dl-links">
+          <a href="pdf/checklist-preparation-2027.pdf" download>⬇ Checklist 2027 (PDF)</a>
+          <a href="pdf/comparatif-pdp-2027.pdf" download>⬇ Comparatif PDP (PDF)</a>
+        </div>
+      </div>
+      <div class="lead-form">
+        <h3>Recevez-le par email</h3>
+        <p class="hint">Je vous envoie les deux PDF, et un rappel utile avant l'été 2027.</p>
+        <form id="lead-form" novalidate>
+          <div class="field"><label for="l-name">Nom</label><input id="l-name" name="name" type="text" placeholder="Votre nom" required></div>
+          <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" placeholder="vous@exemple.fr" required></div>
+          <div class="field"><label for="l-metier">Votre métier</label><select id="l-metier" name="question"><option>Indépendant / freelance B2B</option><option>Artisan / TPE</option><option>Comptable / cabinet</option><option>PME</option><option>Micro-entrepreneur</option><option>Autre</option></select></div>
+          <button type="submit" class="btn btn-amber" style="width:100%;justify-content:center" id="lead-btn">Recevoir le diagnostic gratuit</button>
+          <div class="form-err" id="lead-err"></div>
+          <div class="form-ok" id="lead-ok">✓ Merci ! Le diagnostic arrive dans votre boîte mail (pensez à vérifier les spams).</div>
+          <p class="form-note">🔒 Vos données ne servent qu'à vous envoyer le diagnostic. Aucune revente, désinscription en un clic.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">L'accompagnement</span>
+      <h2>Trois formules pour être prêt avant l'été 2027</h2>
+      <p>Un diagnostic de préparation, pas un 22<sup>e</sup> logiciel de facturation. Je vous aide à choisir, basculer, et rester conforme.</p>
+    </div>
+    <div class="offers">
+      <div class="offer">
+        <h3>Diagnostic Essentiel</h3>
+        <p class="desc">L'état des lieux : où en êtes-vous, que corriger.</p>
+        <div class="price">290 € <small>prestation unique</small></div>
+        <ul>
+          <li>Audit de vos flux de facturation actuels</li>
+          <li>Rapport de conformité (conforme / à corriger)</li>
+          <li>Recommandation PDP courte</li>
+          <li>Checklist priorisée</li>
+          <li>20 min de restitution à distance</li>
+        </ul>
+        <a href="#commander" class="btn btn-ghost" data-offer="Diagnostic Essentiel" data-price="290">Choisir l'Essentiel</a>
+      </div>
+      <div class="offer hot">
+        <span class="tag">LE PLUS CHOISI</span>
+        <h3>Diagnostic Complet</h3>
+        <p class="desc">Le choix de votre PDP + un plan de bascule daté.</p>
+        <div class="price">390 € <small>prestation unique</small></div>
+        <ul>
+          <li>Tout le Diagnostic Essentiel</li>
+          <li>Comparatif PDP détaillé selon votre métier</li>
+          <li>Plan de bascule personnalisé avec échéancier</li>
+          <li>Vérification de votre format de facture actuel</li>
+          <li>30 min de restitution à distance</li>
+        </ul>
+        <a href="#commander" class="btn btn-primary" data-offer="Diagnostic Complet" data-price="390">Choisir le Complet</a>
+      </div>
+      <div class="offer">
+        <h3>Accompagnement Bascule</h3>
+        <p class="desc">L'exécution accompagnée jusqu'à la conformité.</p>
+        <div class="price">490 € <small>prestation unique</small></div>
+        <ul>
+          <li>Tout le Diagnostic Complet</li>
+          <li>Test des formats Factur-X/UBL/CII sur vos factures réelles</li>
+          <li>Accompagnement au choix et à la mise en place de la PDP</li>
+          <li>Support email 30 jours</li>
+          <li>Suivi jusqu'à la mise en conformité</li>
+        </ul>
+        <a href="#commander" class="btn btn-ghost" data-offer="Accompagnement Bascule" data-price="490">Choisir la Bascule</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODE -->
+<section id="methode" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">La méthode</span>
+      <h2>Trois étapes, zéro jargon</h2>
+    </div>
+    <div class="meth">
+      <div class="meth-step"><div class="m-num">01</div><h3>Audit de vos flux</h3><p>J'inventorie ce que vous facturez, à qui, dans quel format, avec quel logiciel. Résultat : la liste exacte de vos écarts de conformité.</p></div>
+      <div class="meth-step"><div class="m-num">02</div><h3>Choix de la PDP</h3><p>À partir de votre métier et de votre volume, je sélectionne 2-3 Plateformes Agréées pertinentes et vous donne les bonnes questions à leur poser.</p></div>
+      <div class="meth-step"><div class="m-num">03</div><h3>Plan de bascule</h3><p>Un échéancier daté avant l'été 2027, testé sur vos factures réelles, pour basculer sans stress ni rupture de facturation.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Questions fréquentes</span>
+      <h2>On répond à vos doutes</h2>
+    </div>
+    <div class="faq-item"><button class="faq-q">La facture électronique est-elle obligatoire pour moi ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Si vous émettez des factures B2B assujetties à la TVA, oui : l'émission devient obligatoire au 1<sup>er</sup> septembre 2027 pour les TPE, PME et micro-entrepreneurs. La réception, elle, est déjà obligatoire pour toutes les entreprises depuis le 1<sup>er</sup> septembre 2026.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Un PDF suffit-il ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Non. Les factures électroniques doivent utiliser les formats structurés Factur-X, UBL ou CII, transmis via une Plateforme Agréée (PDP) ou le Portail Public de Facturation (PPF). Un simple PDF envoyé par email n'est pas conforme.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Que se passe-t-il si je ne fais rien ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Vous restez en PDF simple : vos factures seront refusées et vous vous exposez à 50 € par facture non conforme (plafond 15 000 €/an), 500 € par e-reporting manquant, et 500 € puis 1 000 €/trimestre sans PDP après mise en demeure. Une tolérance existe pour la première infraction de moins de 3 mois.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Pourquoi payer un diagnostic plutôt que demander à mon logiciel ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Votre éditeur vous vendra sa solution (ou son partenariat). Nous sommes neutres : nous n'avons aucun logiciel à vous vendre, donc nous comparons objectivement les PDP selon votre métier, votre volume et votre budget — et nous vérifions que votre outil actuel génère bien le volet structuré.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Comment se déroule la prestation ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Vous commandez via le formulaire. Je vous recontacte sous 24 h ouvrées pour un premier échange offert et sans engagement. Je collecte vos flux, puis je livre un rapport écrit avec une restitution à distance. Délai moyen : 3 à 7 jours ouvrés selon la formule.</div></div></div>
+    <div class="faq-item"><button class="faq-q">Y a-t-il une garantie ?<span class="chev">+</span></button><div class="faq-a"><div class="inner">Le premier échange est offert et sans engagement. Si vous commandez puis changez d'avis avant le démarrage de l'audit, vous êtes remboursé. Et si le diagnostic livré ne vous apporte pas une feuille de route claire pour 2027, je le reprends à votre écoute jusqu'à satisfaction.</div></div></div>
+  </div>
+</section>
+
+<!-- COMMANDE -->
+<section id="commander" class="alt">
+  <div class="wrap">
+    <div class="order-box">
+      <div class="order-left">
+        <h2>Commandez votre diagnostic de préparation</h2>
+        <p>Je vous réponds sous 24 h ouvrées avec un devis et un lien de paiement. Règlement par virement ou message privé.</p>
+        <ul class="steps">
+          <li><b>1</b> <span>Choisissez votre formule.</span></li>
+          <li><b>2</b> <span>Je vous recontacte pour cadrer votre situation (offert, sans engagement).</span></li>
+          <li><b>3</b> <span>Rapport écrit + restitution, puis bascule avant l'été 2027.</span></li>
+        </ul>
+      </div>
+      <form id="order-form" novalidate>
+        <div class="offer-radio" id="offer-radio">
+          <label data-offer="Diagnostic Essentiel" data-price="290"><input type="radio" name="offre" value="Diagnostic Essentiel"><span><b>Diagnostic Essentiel</b></span><span class="r-price">290 €</span></label>
+          <label class="sel" data-offer="Diagnostic Complet" data-price="390"><input type="radio" name="offre" value="Diagnostic Complet" checked><span><b>Diagnostic Complet</b> · le plus choisi</span><span class="r-price">390 €</span></label>
+          <label data-offer="Accompagnement Bascule" data-price="490"><input type="radio" name="offre" value="Accompagnement Bascule"><span><b>Accompagnement Bascule</b></span><span class="r-price">490 €</span></label>
+        </div>
+        <div class="field"><label for="o-name">Nom</label><input id="o-name" name="name" type="text" placeholder="Votre nom" required></div>
+        <div class="field"><label for="o-email">Email professionnel</label><input id="o-email" name="email" type="email" placeholder="vous@entreprise.fr" required></div>
+        <div class="field"><label for="o-msg">Décrivez votre situation (facultatif)</label><textarea id="o-msg" name="message" placeholder="Ex. : 40 factures B2B par mois, logiciel X, je veux basculer avant l'été 2027…"></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" id="order-btn">Envoyer ma commande</button>
+        <div class="form-err" id="order-err"></div>
+        <div class="form-ok" id="order-ok">✓ Commande envoyée ! Je vous recontacte sous 24 h ouvrées avec votre devis.</div>
+        <p class="form-note">🔒 Confirmation par email — paiement par virement ou message privé. Aucun débit en ligne à cette étape.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="#" class="logo"><span class="mark">27</span><span style="color:#fff">Prêt à émettre</span></a>
+        <p>Diagnostic de préparation à la facturation électronique obligatoire. Échéance : 1<sup>er</sup> septembre 2027.</p>
+      </div>
+      <div><b style="color:#fff;font-size:14px">Navigation</b><br><br><a href="#risque">Le risque</a><br><a href="#diagnostic">Diagnostic gratuit</a><br><a href="#offres">Offres</a><br><a href="#faq">FAQ</a></div>
+      <div><b style="color:#fff;font-size:14px">Ressources</b><br><br><a href="pdf/checklist-preparation-2027.pdf" download>Checklist 2027 (PDF)</a><br><a href="pdf/comparatif-pdp-2027.pdf" download>Comparatif PDP (PDF)</a><br><a href="legale.html">Mentions légales &amp; CGV</a></div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Prêt à émettre 2027 — Diagnostic e-invoicing.</span>
+      <span>Sources : economie.gouv.fr · service-public.gouv.fr · impots.gouv.fr</span>
+    </div>
+    <p class="disclaimer">Ce site et ses documents constituent une aide à la préparation de la réforme de la facturation électronique. Ils ne remplacent pas un conseil juridique, fiscal ou comptable : les obligations et sanctions mentionnées proviennent des sources officielles citées et peuvent évoluer.</p>
+  </div>
+</footer>
+
+<script>
+/* ===== Compte à rebours réel vers le 01/09/2027 (Europe/Paris) ===== */
+(function(){
+  var target = new Date('2027-09-01T00:00:00+02:00').getTime();
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var now = Date.now();
+    var diff = Math.max(0, target - now);
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor(diff % 86400000 / 3600000);
+    var m = Math.floor(diff % 3600000 / 60000);
+    var s = Math.floor(diff % 60000 / 1000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = pad(h);
+    document.getElementById('cd-m').textContent = pad(m);
+    document.getElementById('cd-s').textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ===== FAQ accordéon ===== */
+(function(){
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.parentElement;
+      var ans = item.querySelector('.faq-a');
+      var open = btn.classList.toggle('open');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0';
+    });
+  });
+})();
+
+/* ===== Pré-sélection d'offre (boutons des cartes → radio du formulaire) ===== */
+(function(){
+  document.querySelectorAll('.offer a[data-offer]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var offer = a.getAttribute('data-offer');
+      var radio = document.querySelector('#offer-radio input[value="' + offer + '"]');
+      if (radio) {
+        radio.checked = true;
+        document.querySelectorAll('#offer-radio label').forEach(function(l){
+          l.classList.toggle('sel', l.getAttribute('data-offer') === offer);
+        });
+        document.getElementById('commander').scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+  document.querySelectorAll('#offer-radio label').forEach(function(label){
+    label.addEventListener('click', function(){
+      document.querySelectorAll('#offer-radio label').forEach(function(l){ l.classList.remove('sel'); });
+      label.classList.add('sel');
+    });
+  });
+})();
+
+/* ===== EmailJS (chargement à la demande) + formulaires ===== */
+var EMAILJS_CFG = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.emailjs) || {serviceId:'service_cy1ytdb', templateId:'template_xpo58cv', publicKey:'8Pui4ZEqxW2jRVF7h'};
+function chargerEmailJS(){
+  return new Promise(function(resolve, reject){
+    if (window.emailjs) { resolve(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    s.onload = function(){ try { emailjs.init({ publicKey: EMAILJS_CFG.publicKey }); } catch(e){} resolve(); };
+    s.onerror = function(){ reject(new Error('SDK EmailJS indisponible')); };
+    document.head.appendChild(s);
+  });
+}
+function sendEmail(payload){
+  return chargerEmailJS().then(function(){
+    return emailjs.send(EMAILJS_CFG.serviceId, EMAILJS_CFG.templateId, payload);
+  });
+}
+function showErr(id, msg){ var e = document.getElementById(id); e.style.display = 'block'; e.textContent = msg; }
+function hideErr(id){ var e = document.getElementById(id); e.style.display = 'none'; }
+
+/* --- Lead magnet --- */
+var leadForm = document.getElementById('lead-form');
+leadForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var name = document.getElementById('l-name').value.trim();
+  var email = document.getElementById('l-email').value.trim();
+  var metier = document.getElementById('l-metier').value;
+  hideErr('lead-err');
+  var err = '';
+  if (!name) err = 'Merci de renseigner votre nom.';
+  else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err = 'Merci de renseigner un email valide.';
+  if (err){ showErr('lead-err', err); return; }
+  var btn = document.getElementById('lead-btn');
+  btn.disabled = true; btn.textContent = 'Envoi en cours…';
+  sendEmail({
+    site: 'Prêt à émettre 2027 — Diagnostic gratuit',
+    name: name,
+    email: email,
+    question: 'Demande du diagnostic gratuit (checklist 2027 + comparatif PDP) — métier : ' + metier
+  }).then(function(){
+    document.getElementById('lead-ok').style.display = 'block';
+    leadForm.reset();
+  }).catch(function(){
+    showErr('lead-err', 'Échec de l\'envoi. Réessayez ou écrivez-moi directement par email.');
+  }).finally(function(){
+    btn.disabled = false; btn.textContent = 'Recevoir le diagnostic gratuit';
+  });
+});
+
+/* --- Commande --- */
+var orderForm = document.getElementById('order-form');
+orderForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var sel = document.querySelector('#offer-radio input:checked');
+  var offer = sel ? sel.value : '';
+  var price = sel ? sel.closest('label').getAttribute('data-price') : '';
+  var name = document.getElementById('o-name').value.trim();
+  var email = document.getElementById('o-email').value.trim();
+  var msg = document.getElementById('o-msg').value.trim();
+  hideErr('order-err');
+  var err = '';
+  if (!offer) err = 'Merci de choisir une formule.';
+  else if (!name) err = 'Merci de renseigner votre nom.';
+  else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err = 'Merci de renseigner un email valide.';
+  if (err){ showErr('order-err', err); return; }
+  var recap = 'Commande Prêt à émettre 2027 : ' + offer + ' — ' + price + ' € (prestation unique).';
+  if (msg) recap += ' Contexte client : ' + msg;
+  var btn = document.getElementById('order-btn');
+  btn.disabled = true; btn.textContent = 'Envoi en cours…';
+  sendEmail({
+    site: 'Prêt à émettre 2027 — Commande',
+    name: name,
+    email: email,
+    question: recap
+  }).then(function(){
+    document.getElementById('order-ok').style.display = 'block';
+    orderForm.reset();
+    var def = document.querySelector('#offer-radio label[data-offer="Diagnostic Complet"]');
+    if (def){ def.classList.add('sel'); def.querySelector('input').checked = true; }
+  }).catch(function(){
+    showErr('order-err', 'Échec de l\'envoi. Réessayez ou écrivez-moi directement par email.');
+  }).finally(function(){
+    btn.disabled = false; btn.textContent = 'Envoyer ma commande';
+  });
+});
+</script>
+
+<script src="chatbot-config.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>
